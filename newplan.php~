@@ -1,0 +1,86 @@
+<?php
+$eventa = $_POST["event1"][1];
+$eventb = $_POST["event1"][2];
+
+//initialize
+//$event1 = count($_POST['event1']) ? $_POST['event1'] : array();
+
+//echo out their choices separated by a comma
+//echo count($event1) ? implode(', ',$event1) : 'Nothing';
+if(isset($_POST['event1'])){ //&& $_POST['event1'] == "true"){ 
+print_r($_POST['event1']);
+}
+?>
+
+
+<html>
+<head>
+ <title>New Plan</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
+<script type="text/javascript">
+  function generatePlan(){
+  var planname= document.getElementById('planname').value;
+  var numOfEvent=document.getElementById('numOfEvents').value;
+  var content ="<table class='table'><tr><th></th>"    
+   for (var i=1;i < 17; i++){
+    content += '<th>Zone' + i + '</th>'
+  }//end of table header
+
+  content += '<th>Time</th></tr>'
+  for(var e=0; e<numOfEvent ;e++){
+  content += '<tr><th>EVENT ' + (e+1) + '</th>'
+   for (i=1;i<17;i++){
+   content += '<td><input type="checkbox" value="true" class="checkbox" name="event' + e + '[]"/></td>';
+   }//end checkbox loop
+  content += '<td><input type="text" name="event' + e + '[]" style="width:2em;" /></td></tr>';
+  }//End numOfEvents loop
+ content +='</table><input type="submit" class="btn btn-primary" value="submit" onclick="results()"/>'
+ document.getElementById("plansettings").innerHTML=content;
+  }//end of generatePlan() 
+
+function ajax_test(){
+var somearray=["car","Truck","tractor"];
+alert(somearray);
+var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("demo").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "./ajax_test.php?q=" + test, true);
+        xmlhttp.send();
+}
+</script>
+<style>
+
+</style>
+</head>
+<body>
+<div class="container-fluid"> 
+<fieldset><legend>New Plan Wizard</legend>
+<form class="form-horizontal">
+ <div class="form-group">
+  <label for="planname" class="col-xs-1">Plan Name</label>
+  <input type="text" id="planname" class="col-xs-7" required>
+   </div>
+   <div class="form-group">
+  <label for="numOfEvents" class="col-xs-1">Number of Events</label>
+  <input type="text" id="numOfEvents" class="col-xs-2" />
+ </div>
+<input type="button" class="btn btn-success" value="Generate Table" onclick="generatePlan()">
+<input type="button" class="btn btn-success" value="Generate Table" onclick="ajax_test()">
+<div id="demo"></div>
+</fieldset></form>
+<fieldset><legend>Plan Settings</legend>
+<form id="plansettings" action="newplan.php" method="post"></form>
+</fieldset>
+
+</div></body></html>
+
+
+
