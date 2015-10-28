@@ -43,8 +43,37 @@ var xhttp = new XMLHttpRequest();
   xhttp.open("GET", "./show1.php?name="+db, true);
   xhttp.send();
 }
+function updatedb(){
+//var planname=document.getElementById('planname').innerHTML;
+//alert(planname)
+var e =0
+var zone
+var eventN// ='planname=' + planname + '&data='
+var eventTime= document.getElementsByName("time")	
+	for( e; e<eventTime.length; e++){ //loop for number of events
+var zone = document.getElementsByName("event"+e)
+var	content= ""	
+	for(var i=0;i<16;i++){
+	content += (zone[i].checked)?1 + ",":0 +","
 
+}
 
+	content += eventTime[e].innerHTML
+	eventN += '('  + content + '),'
+}		
+	alert(eventN +" " +planname)
+	eventN= eventN.substr(0,eventN.length-1);
+/*	var xmlhttp = new XMLHttpRequest();
+       	xmlhttp.onreadystatechange = function() {
+       	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+           document.getElementById("demo").innerHTML = xmlhttp.responseText;
+   	 }	
+  	}
+	        xmlhttp.open("POST", "./edit.php", true);
+	       xmlhttp.setRequestHeader("content-type","application/x-www-form-urlencoded")
+		 xmlhttp.send(eventN);
+*/
+}
 </script>
 </head>
 <body onload="listTables()">
