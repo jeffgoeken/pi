@@ -60,7 +60,6 @@ var	content= ""
 	content += eventTime[e].value
 	eventN += '('  + content + '),'
 }		
-alert(eventN)
 	eventN= eventN.substr(0,eventN.length-1);
 	var xmlhttp = new XMLHttpRequest();
        	xmlhttp.onreadystatechange = function() {
