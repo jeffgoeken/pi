@@ -52,7 +52,7 @@ var eventTime= document.getElementsByName("time")
 	for( e; e<eventTime.length; e++){ //loop for number of events
 var zone = document.getElementsByName("event"+e)
 var	content= ""	
-	for(var i=0;i<16;i++){
+	for(var i=1;i<17;i++){
 	content += (zone[i].checked)?1 + ",":0 +","
 
 }
@@ -60,6 +60,7 @@ var	content= ""
 	content += eventTime[e].value
 	eventN += '('  + content + '),'
 }		
+alert(eventN)
 	eventN= eventN.substr(0,eventN.length-1);
 	var xmlhttp = new XMLHttpRequest();
        	xmlhttp.onreadystatechange = function() {
