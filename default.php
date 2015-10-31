@@ -72,6 +72,21 @@ var	content= ""
 		 xmlhttp.send(eventN);
 
 }
+
+function hour(){
+for(i=1; i<12; i++){
+ document.write('<option>' + i + '</option>');
+}
+}
+function minute(){
+for(i=00; i<61; i++){
+if (i<10){
+ document.write('<option>0' + i + '</option>');
+ } else {
+ document.write('<option>' + i + '</option>');
+ } 
+}
+}
 </script>
 </head>
 <body onload="listTables()">
@@ -86,7 +101,23 @@ var	content= ""
 <div id="alert"></div>
 <div id="dynamic"></div>
 </fieldset>
-</div></div>
+</div>
+<div>
+<fieldset><legend>Plan A</legend>
+
+<select class="form-control" style="width:5em;float:left;";>
+<script type="text/javascript">
+hour()
+</script>
+</select>
+<select class="form-control" style="width:5em";>
+<script type="text/javascript">
+minute()
+</script>
+</select>
+</fieldset>
+</div>
+</div>
 </body>
 </html>
 
