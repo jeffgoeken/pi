@@ -1,28 +1,5 @@
 <?php
 
-function selectTime(){
-$droptime= '<select class="form-control" style="width:5em;float-left;;display:inline-block">';
-for($i=1; $i<13; $i++){
-$droptime .= '<option>' . $i . '</option>';
-}
-$droptime  .='</select>';
-$content .= '<select class="form-control" style="width:5em;float-left;;display:inline-block">';
-for($i=0; $i<61; $i++){
-if($i<10){
-$content .='<option>0' . $i . '</option>';
-} else {
-$content .='<option>' . $i . '</option>';
-}
-}
-$content .= '</select>';
-}
-
-//Define functions
-function dropDB($dw){
-echo $dw;
-//$query = "DROP " . db;
-//if($result=$conn->query($query))
-}
 //make the Database Connection
 
 $conn = new mysqli('localhost','jeff','L@$v3g@$','sprinkler');
@@ -32,7 +9,7 @@ if($conn->connect_error){
 
 $plans = array('Plan A', 'Plan B', 'Plan C', 'Plan D');
 for($p=0;$p< count($plans);$p++){
-echo '<fieldset><legend>'. $plans[$p].'</legend>';
+echo '<fieldset><legend><h4>'. $plans[$p].'</h4></legend>';
 
 //Show Tables
 $content ='<table><tr>';
@@ -74,7 +51,10 @@ $content .='<option>0' . $i . '</option>';
 $content .='<option>' . $i . '</option>';
 }
 }
-$content .= '</select></td></tr></table>';
+$content .= '</select></td></tr>';
+$content .= '</tr><th>Sun</th><td><input type="checkbox" value="0" name="' . $plans[$p] . '"></td>';
+
+$content .= '</tr></table>';
 }
 echo $content;
 echo '</fieldset>';
