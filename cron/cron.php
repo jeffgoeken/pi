@@ -6,55 +6,67 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-function del(id){
-alert(id);
+var query
+function deljob(id){
+
+ query = 'DELETE FROM cron WHERE id='+id;
+ajax(query)
 }
+//AJAX
+function ajax(query){
+var cron = new XMLHttpRequest();
+cron.onreadystatechange = function(){
+ if(cron.readyState ==4 && cron.status == 200){
+ document.getElementById('alert').innerHTML= cron.responseText; 
+ }//endi readystate if
+} //end onreadystatechane
+cron.open("GET","./deletejob.php?query=" + query, true);
+cron.send();
+showjob()
+}// end function deljob
 
 function newjob(){
-
+var time = document.getElementById("mhdmd").value
+var job = document.getElementById("job").value
+query='INSERT INTO cron VALUES(null,"' + time + '","' + job + '")'
+ajax(query);
 }
-
-
+function showjob(){
+var cron = new XMLHttpRequest();
+cron.onreadystatechange=function(){
+ if(cron.readyState ==4 && cron.status ==200){
+ document.getElementById('show').innerHTML = cron.responseText;
+}
+}
+cron.open("GET","./showcron.php",true);
+cron.send()
+}//end of Function
+function populateTime(start, stop, id){
+document.write("<option>*</option>");
+ for(var i=start; i<stop;i++){
+ document.write ("<option>" +i + "</option>");
+ } 
+}
 </script>
 </head>
 <html>
-<body>
+<body onload="showjob()">
 
 <fieldset><h2>Current Jobs</h2>
+<div id="alert"></div>
+<div id="show"></div>
 
-<?php
-//access cron table
-$conn = new mysqli('localhost','jeff','L@$v3g@$','sprinkler');
+<div class="form-group col-xs-4">
+  <label for="mhdmd">M H D M DOW</label>
+  <input type="text" id="mhdmd" class="form-control">	
+</div>
 
-if ($conn->connect_error){
-die("Connection error: " . $conn->connect_error);
+<div class="form-group col-xs-6">
+  <label for="dow">Job</label>
+  <input type="text" id="job" class="form-control">
+</div>
 
-} else {
-echo "Connection Good <br>";
-}
-echo '<table class="table table-striped table-condensed">';
-//Read dat from table
-$query = "SELECT * FROM cron";
-$result = $conn->query($query);
-if($result->num_rows > 0){
-  While($row = $result->fetch_assoc()){
-  echo '<tr><td>' . $row["time"] . ' ' . $row["command"] .'</td><td><input type="button" 
-class="btn btn-primary btn-xs" id="' . $row['id'] . '" value="Delete" onclick = "del(this.id)"></td></tr>';
-}
-echo '</table>';
-}
-$output = shell_exec('crontab -l');
-//file_put_contents('/tmp/crontab.txt', $output.'*/5 * * * * /home/jeff/pi/runplan.php plan1'.PHP_EOL);
-//echo $output;
-echo '<table class="table table-condensed">';
-$i=0;
-$job= explode("\n",shell_exec('crontab -l'));
-echo count($job) .'<br>';
-foreach($job as $value){
-echo $value . $i++.'<br>';
-}
-?>
-<input type="button" class="btn btn-success" onclick="newjob()">
+<input type="button" value="Add Job" class="btn btn-lg btn-success" onclick="newjob()">
 <div id="newjob"></div>
 </fieldset>
 </body>

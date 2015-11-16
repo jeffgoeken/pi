@@ -73,6 +73,16 @@ var	content= ""
 
 }
 
+function clearuntime(){
+var xhttp = new XMLHttpRequest;
+   xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+ document.getElementById("selecttable").innerHTML = xhttp.responseText;
+    }
+  }
+  xhttp.open("GET", "./cron.php", true);
+  xhttp.send();
+}
 function selecttable(){
 var xhttp = new XMLHttpRequest;
    xhttp.onreadystatechange = function() {
@@ -80,8 +90,14 @@ var xhttp = new XMLHttpRequest;
  document.getElementById("selecttable").innerHTML = xhttp.responseText;
     }
   }
-  xhttp.open("GET", "./selecttable.php", true);
+  xhttp.open("GET", "./cron.php", true);
   xhttp.send();
+}
+function saveRuntime(planname){
+alert(planname);
+data = document.getElementsByName(planname);
+alert(data.length)
+<?php echo "test"; ?>
 }
 </script>
 </head>
